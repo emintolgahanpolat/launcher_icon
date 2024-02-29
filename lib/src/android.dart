@@ -29,17 +29,19 @@ class LauncherAndroid implements LauncherInterface {
       {String? flavor}) async {
     Log.i("• Android icons created.", level: 1);
     Image? image =
-        decodeImage(File(config["android_foreground"]).readAsBytesSync());
+        decodeImage(File(config["android_foreground_path"]).readAsBytesSync());
+
     if (image == null) {
       return;
     }
+    Image? imagefg = image.clone();
     String assetsName = config["android_assets_name"] ?? "ic_launcher";
     if (flavor != null && flavor.split("-").length > 1) {
       assetsName = 'ic_launcher-' + flavor.split("-").last;
       flavor = flavor.split("-").first;
     }
 
-    String? iconPath = config["android_foreground"];
+    String? iconPath = config["android_foreground_path"];
     if (iconPath == null) {
       Log.e("android_image_path is not defined in the config file.", level: 2);
     }
@@ -78,18 +80,24 @@ class LauncherAndroid implements LauncherInterface {
             element, cornerRadius(image, radius: 86), assetsName + "-rounded",
             flavor: flavor);
       }
+      if (config["android_foreground"] == true) {
+        saveIcon(element, imagefg, assetsName + "-foreground", flavor: flavor);
+      }
       saveIcon(element, image, assetsName, flavor: flavor);
     });
     adaptiveForegroundIcons.forEach((element) {
-      if (config["android_circle"] == true) {
+      if (config["android_adaptive_circle"] == true) {
         saveIcon(
             element, copyCropCircle(image, radius: 512), assetsName + "-circle",
             flavor: flavor);
       }
-      if (config["android_rounded"] == true) {
+      if (config["android_adaptive_rounded"] == true) {
         saveIcon(
             element, cornerRadius(image, radius: 86), assetsName + "-rounded",
             flavor: flavor);
+      }
+      if (config["android_adaptive_foreground"] == true) {
+        saveIcon(element, imagefg, assetsName + "-foreground", flavor: flavor);
       }
       saveIcon(element, image, assetsName, flavor: flavor);
     });
@@ -99,7 +107,7 @@ class LauncherAndroid implements LauncherInterface {
       {String? flavor}) async {
     final String newIconFolder = androidResFolder(flavor) + template.name + "/";
     final Image newFile = createResizedImage(template, image);
-    File(newIconFolder + newIconName + '.png')
+    File(newIconFolder + newIconName + '.webp')
         .create(recursive: true)
         .then((File file) {
       file.writeAsBytesSync(encodePng(newFile));

@@ -11,7 +11,7 @@ dev_dependencies:
 launcher_icon:
   android: true #enable android
   android_assets_name: "ic_launcher_noel" # build file name
-  android_foreground: "assets/logo_fg.png" # 1024x1024 png
+  android_foreground_path: "assets/logo_fg.png" # 1024x1024 png
   android_background: "#FF0000" # hex code or 1024x1024 png
   ios: true #enable ios
   ios_assets_name: "AppIcon-noel" #build file name
