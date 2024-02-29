@@ -1,0 +1,8 @@
+launcher_icon:
+  android: true
+  android_foreground: "assets/logo_fg.png"
+  android_background: "assets/prod_bg.png"
+  ios: true
+  ios_assets_name: "AppIcon"
+  ios_foreground: "assets/logo_fg.png"
+  ios_background: "assets/prod_bg.png"

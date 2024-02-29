@@ -1,0 +1,7 @@
+launcher_icon:
+  android: true
+  android_foreground: "assets/logo_fg.png"
+  android_background: "assets/stg_bg.png"
+  ios: true
+  ios_foreground: "assets/logo_fg.png"
+  ios_background: "#FF5F00"
