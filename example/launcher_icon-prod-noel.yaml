@@ -1,5 +1,7 @@
 launcher_icon:
   android: true
+  android_rounded: true
+  android_circle: true
   android_assets_name: "ic_launcher_noel"
   android_foreground: "assets/logo_fg.png"
   android_background: "#FF0000"
