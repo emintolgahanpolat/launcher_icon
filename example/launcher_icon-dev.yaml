@@ -9,5 +9,5 @@ launcher_icon:
   android_foreground_path: "assets/logo_fg.png"
   android_background: "assets/dev_bg.png"
   ios: true
-  ios_foreground: "assets/logo_fg.png"
+  ios_foreground_path: "assets/logo_fg.png"
   ios_background: "#7ED321"

@@ -39,17 +39,19 @@ class LauncherIOS implements LauncherInterface {
       {String? flavor}) async {
     Log.i("• iOS icons created.", level: 1);
     Image? image =
-        decodeImage(File(config["ios_foreground"]).readAsBytesSync());
+        decodeImage(File(config["ios_foreground_path"]).readAsBytesSync());
+
     if (image == null) {
       return;
     }
+    Image? imagefg = image.clone();
 
     String assetsName = config["ios_assets_name"] ?? "AppIcon";
     if (config["ios_assets_name"] == null && flavor != null) {
       assetsName = 'AppIcon-' + flavor;
     }
 
-    String? iconPath = config["ios_foreground"];
+    String? iconPath = config["ios_foreground_path"];
     if (iconPath == null) {
       Log.e("ios_image_path is not defined in the config file.", level: 2);
     }
@@ -75,6 +77,14 @@ class LauncherIOS implements LauncherInterface {
       do {
         pixel.set(alphaBlend(pixel, bg.getPixel(pixel.x, pixel.y)));
       } while (pixel.moveNext());
+    }
+    if (config["ios_launcher"] == true) {
+      Log.i("• iOS launcher icon created.", level: 1);
+      String launcherName = config["ios_launcher_name"] ?? "LaunchImage";
+      if (config["ios_launcher_name"] == null && flavor != null) {
+        launcherName = 'LaunchImage-' + flavor;
+      }
+      saveIcon(IconTemplate(size: 1024, name: ""), image, launcherName);
     }
 
     if (image.hasAlpha) {
