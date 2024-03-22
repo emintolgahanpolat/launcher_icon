@@ -91,12 +91,6 @@ class LauncherIOS implements LauncherInterface {
         size: 88,
         role: "appLauncher",
         subtype: "40mm"),
-    /* AppleIconTemplate(
-        idiom: "watch",
-        scale: 2,
-        size: 102,
-        role: "appLauncher",
-        subtype: "41mm"),*/
     AppleIconTemplate(
         idiom: "watch",
         scale: 2,
@@ -139,19 +133,52 @@ class LauncherIOS implements LauncherInterface {
         size: 66,
         role: "notificationCenter",
         subtype: "45mm"),
-    //AppleIconTemplate(idiom: "watch", scale: 3, size: 87),
-    //AppleIconTemplate(idiom: "watch", scale: 2, size: 58),
     AppleIconTemplate(idiom: "watch-marketing", scale: 1, size: 1024),
     AppleIconTemplate(idiom: "mac", scale: 1, size: 128),
     AppleIconTemplate(idiom: "mac", scale: 1, size: 256),
     AppleIconTemplate(idiom: "mac", scale: 2, size: 256),
-    //AppleIconTemplate(idiom: "mac", scale: 2, size: 512),
     AppleIconTemplate(idiom: "mac", scale: 1, size: 32),
     AppleIconTemplate(idiom: "mac", scale: 1, size: 512),
     AppleIconTemplate(idiom: "mac", scale: 1, size: 16),
     AppleIconTemplate(idiom: "mac", scale: 2, size: 32),
     AppleIconTemplate(idiom: "mac", scale: 2, size: 64),
     AppleIconTemplate(idiom: "mac", scale: 2, size: 512),
+    AppleIconTemplate(
+        idiom: "watch",
+        scale: 2,
+        size: 234,
+        role: "quickLook",
+        subtype: "45mm"),
+    AppleIconTemplate(
+        idiom: "watch",
+        scale: 2,
+        size: 258,
+        role: "quickLook",
+        subtype: "49mm"),
+    AppleIconTemplate(
+        idiom: "watch",
+        scale: 2,
+        size: 102,
+        role: "appLauncher",
+        subtype: "45mm"),
+    AppleIconTemplate(
+        idiom: "watch",
+        scale: 2,
+        size: 108,
+        role: "appLauncher",
+        subtype: "49mm"),
+    AppleIconTemplate(
+      idiom: "watch",
+      scale: 2,
+      size: 58,
+      role: "companionSettings",
+    ),
+    AppleIconTemplate(
+      idiom: "watch",
+      scale: 3,
+      size: 87,
+      role: "companionSettings",
+    ),
   ];
 
   @override
