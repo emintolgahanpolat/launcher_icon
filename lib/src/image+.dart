@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'dart:typed_data';
 import 'package:image/image.dart';
 import 'package:launcher_icon/src/icon_template.dart';

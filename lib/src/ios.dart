@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -8,30 +9,149 @@ import 'package:launcher_icon/src/image+.dart';
 import 'package:launcher_icon/src/launcher_interface.dart';
 
 const String iosAssetFolder = 'ios/Runner/Assets.xcassets/';
+String intToString(double number) {
+  if (number == number.toInt().toDouble()) {
+    return number.toInt().toString();
+  } else {
+    return number.toString();
+  }
+}
+
+class AppleIconTemplate extends IconTemplate {
+  String idiom;
+  int scale;
+  String? role;
+  String? subtype;
+  AppleIconTemplate(
+      {required int size,
+      required this.idiom,
+      required this.scale,
+      this.role,
+      this.subtype})
+      : super(
+            name:
+                "${intToString(size / scale)}x${intToString(size / scale)}@${scale}x",
+            size: size);
+
+  Map<String, String> toJson() {
+    var mSize = intToString(size / scale);
+    return <String, String>{
+      'size': "${mSize}x${mSize}",
+      'idiom': idiom,
+      'filename': "${name}.png",
+      'scale': "${scale}x",
+      if (role != null) 'role': role!,
+      if (subtype != null) 'subtype': subtype!,
+    };
+  }
+}
 
 class LauncherIOS implements LauncherInterface {
-  List<IconTemplate> iosIcons = <IconTemplate>[
-    IconTemplate(name: '-20x20@1x', size: 20),
-    IconTemplate(name: '-20x20@2x', size: 40),
-    IconTemplate(name: '-20x20@3x', size: 60),
-    IconTemplate(name: '-29x29@1x', size: 29),
-    IconTemplate(name: '-29x29@2x', size: 58),
-    IconTemplate(name: '-29x29@3x', size: 87),
-    IconTemplate(name: '-40x40@1x', size: 40),
-    IconTemplate(name: '-40x40@2x', size: 80),
-    IconTemplate(name: '-40x40@3x', size: 120),
-    IconTemplate(name: '-50x50@1x', size: 50),
-    IconTemplate(name: '-50x50@2x', size: 100),
-    IconTemplate(name: '-57x57@1x', size: 57),
-    IconTemplate(name: '-57x57@2x', size: 114),
-    IconTemplate(name: '-60x60@2x', size: 120),
-    IconTemplate(name: '-60x60@3x', size: 180),
-    IconTemplate(name: '-72x72@1x', size: 72),
-    IconTemplate(name: '-72x72@2x', size: 144),
-    IconTemplate(name: '-76x76@1x', size: 76),
-    IconTemplate(name: '-76x76@2x', size: 152),
-    IconTemplate(name: '-83.5x83.5@2x', size: 167),
-    IconTemplate(name: '-1024x1024@1x', size: 1024),
+  List<AppleIconTemplate> iosIcons = <AppleIconTemplate>[
+    AppleIconTemplate(idiom: "iphone", scale: 3, size: 180),
+    AppleIconTemplate(idiom: "iphone", scale: 2, size: 80),
+    AppleIconTemplate(idiom: "iphone", scale: 3, size: 120),
+    AppleIconTemplate(idiom: "iphone", scale: 2, size: 120),
+    AppleIconTemplate(idiom: "iphone", scale: 1, size: 57),
+    AppleIconTemplate(idiom: "iphone", scale: 2, size: 58),
+    AppleIconTemplate(idiom: "iphone", scale: 1, size: 29),
+    AppleIconTemplate(idiom: "iphone", scale: 3, size: 87),
+    AppleIconTemplate(idiom: "iphone", scale: 2, size: 114),
+    AppleIconTemplate(idiom: "iphone", scale: 2, size: 40),
+    AppleIconTemplate(idiom: "iphone", scale: 3, size: 60),
+    AppleIconTemplate(idiom: "ios-marketing", scale: 1, size: 1024),
+    AppleIconTemplate(idiom: "ipad", scale: 2, size: 80),
+    AppleIconTemplate(idiom: "ipad", scale: 1, size: 72),
+    AppleIconTemplate(idiom: "ipad", scale: 2, size: 152),
+    AppleIconTemplate(idiom: "ipad", scale: 2, size: 100),
+    AppleIconTemplate(idiom: "ipad", scale: 2, size: 58),
+    AppleIconTemplate(idiom: "ipad", scale: 1, size: 76),
+    AppleIconTemplate(idiom: "ipad", scale: 1, size: 29),
+    AppleIconTemplate(idiom: "ipad", scale: 1, size: 50),
+    AppleIconTemplate(idiom: "ipad", scale: 2, size: 144),
+    AppleIconTemplate(idiom: "ipad", scale: 1, size: 40),
+    AppleIconTemplate(idiom: "ipad", scale: 2, size: 167),
+    AppleIconTemplate(idiom: "ipad", scale: 1, size: 20),
+    AppleIconTemplate(idiom: "ipad", scale: 2, size: 40),
+    AppleIconTemplate(
+        idiom: "watch",
+        scale: 2,
+        size: 172,
+        role: "quickLook",
+        subtype: "38mm"),
+    AppleIconTemplate(
+        idiom: "watch",
+        scale: 2,
+        size: 80,
+        role: "appLauncher",
+        subtype: "38mm"),
+    AppleIconTemplate(
+        idiom: "watch",
+        scale: 2,
+        size: 88,
+        role: "appLauncher",
+        subtype: "40mm"),
+    /* AppleIconTemplate(
+        idiom: "watch",
+        scale: 2,
+        size: 102,
+        role: "appLauncher",
+        subtype: "41mm"),*/
+    AppleIconTemplate(
+        idiom: "watch",
+        scale: 2,
+        size: 92,
+        role: "appLauncher",
+        subtype: "41mm"),
+    AppleIconTemplate(
+        idiom: "watch",
+        scale: 2,
+        size: 100,
+        role: "appLauncher",
+        subtype: "44mm"),
+    AppleIconTemplate(
+        idiom: "watch",
+        scale: 2,
+        size: 196,
+        role: "quickLook",
+        subtype: "42mm"),
+    AppleIconTemplate(
+        idiom: "watch",
+        scale: 2,
+        size: 216,
+        role: "quickLook",
+        subtype: "44mm"),
+    AppleIconTemplate(
+        idiom: "watch",
+        scale: 2,
+        size: 48,
+        role: "notificationCenter",
+        subtype: "38mm"),
+    AppleIconTemplate(
+        idiom: "watch",
+        scale: 2,
+        size: 55,
+        role: "notificationCenter",
+        subtype: "42mm"),
+    AppleIconTemplate(
+        idiom: "watch",
+        scale: 2,
+        size: 66,
+        role: "notificationCenter",
+        subtype: "45mm"),
+    //AppleIconTemplate(idiom: "watch", scale: 3, size: 87),
+    //AppleIconTemplate(idiom: "watch", scale: 2, size: 58),
+    AppleIconTemplate(idiom: "watch-marketing", scale: 1, size: 1024),
+    AppleIconTemplate(idiom: "mac", scale: 1, size: 128),
+    AppleIconTemplate(idiom: "mac", scale: 1, size: 256),
+    AppleIconTemplate(idiom: "mac", scale: 2, size: 256),
+    //AppleIconTemplate(idiom: "mac", scale: 2, size: 512),
+    AppleIconTemplate(idiom: "mac", scale: 1, size: 32),
+    AppleIconTemplate(idiom: "mac", scale: 1, size: 512),
+    AppleIconTemplate(idiom: "mac", scale: 1, size: 16),
+    AppleIconTemplate(idiom: "mac", scale: 2, size: 32),
+    AppleIconTemplate(idiom: "mac", scale: 2, size: 64),
+    AppleIconTemplate(idiom: "mac", scale: 2, size: 512),
   ];
 
   @override
@@ -44,7 +164,7 @@ class LauncherIOS implements LauncherInterface {
     if (image == null) {
       return;
     }
-    Image? imagefg = image.clone();
+    // Image? imagefg = image.clone();
 
     String assetsName = config["ios_assets_name"] ?? "AppIcon";
     if (config["ios_assets_name"] == null && flavor != null) {
@@ -89,7 +209,7 @@ class LauncherIOS implements LauncherInterface {
 
     if (image.hasAlpha) {
       Log.w(
-        '\nWARNING: Icons with alpha channel are not allowed in the Apple App Store.\nSet "remove_alpha_ios: true" to remove it.\n',
+        '\nWARNING: Icons with alpha channel are not allowed in the Apple App Store.\nSet"remove_alpha_ios: true" to remove it.\n',
       );
     }
     // File("$assetsName.png").writeAsBytesSync(encodePng(image));
@@ -98,16 +218,37 @@ class LauncherIOS implements LauncherInterface {
     });
     //Log.i("$assetsName $iconPath $iconBackground", level: 1);
     // Log.i(config.toString(), level: 2);
+    modifyContentsFile(assetsName, iosIcons);
   }
 
   Future<void> saveIcon(
-      IconTemplate template, Image image, String newIconName) async {
-    final String newIconFolder = iosAssetFolder + newIconName + '.appiconset/';
+      IconTemplate template, Image image, String assetsName) async {
+    final String newIconFolder = iosAssetFolder + assetsName + '.appiconset/';
     final Image newFile = createResizedImage(template, image);
-    File(newIconFolder + newIconName + template.name + '.png')
+    File(newIconFolder + template.name + '.png')
         .create(recursive: true)
         .then((File file) {
       file.writeAsBytesSync(encodePng(newFile));
     });
+  }
+
+  void modifyContentsFile(String assetsName, List<AppleIconTemplate> iosIcons) {
+    final String newIconFolder =
+        iosAssetFolder + assetsName + '.appiconset/Contents.json';
+    File(newIconFolder).create(recursive: true).then((File contentsJsonFile) {
+      final String contentsFileContent = generateContentsFileAsString(iosIcons);
+      contentsJsonFile.writeAsString(contentsFileContent);
+    });
+  }
+
+  String generateContentsFileAsString(List<AppleIconTemplate> iosIcons) {
+    final Map<String, dynamic> contentJson = <String, dynamic>{
+      'images': iosIcons.map((e) => e.toJson()).toList(),
+      'info': {
+        'version': 1,
+        'author': "xcode",
+      },
+    };
+    return json.encode(contentJson);
   }
 }
