@@ -29,8 +29,8 @@ class AppleIconTemplate extends IconTemplate {
       this.role,
       this.subtype})
       : super(
-            name:
-                "${intToString(size / scale)}x${intToString(size / scale)}@${scale}x",
+            // name:   "${intToString(size / scale)}x${intToString(size / scale)}@${scale}x",
+            name: "$size",
             size: size);
 
   Map<String, String> toJson() {
@@ -180,7 +180,11 @@ class LauncherIOS implements LauncherInterface {
       role: "companionSettings",
     ),
   ];
-
+  List<AppleIconTemplate> launcherIcons = [
+    AppleIconTemplate(size: 150, scale: 1, idiom: "universal"),
+    AppleIconTemplate(size: 300, scale: 2, idiom: "universal"),
+    AppleIconTemplate(size: 600, scale: 3, idiom: "universal")
+  ];
   @override
   void createIconsFromConfig(Map<String, dynamic> config,
       {String? flavor}) async {
@@ -231,7 +235,11 @@ class LauncherIOS implements LauncherInterface {
       if (config["ios_launcher_name"] == null && flavor != null) {
         launcherName = 'LaunchImage-' + flavor;
       }
-      saveIcon(IconTemplate(size: 1024, name: ""), image, launcherName);
+
+      launcherIcons.forEach((item) {
+        saveIcon(item, image, launcherName, "imageset");
+      });
+      modifyContentsFile(launcherName, launcherIcons, "imageset");
     }
 
     if (image.hasAlpha) {
@@ -241,16 +249,16 @@ class LauncherIOS implements LauncherInterface {
     }
     // File("$assetsName.png").writeAsBytesSync(encodePng(image));
     iosIcons.forEach((element) {
-      saveIcon(element, image, assetsName);
+      saveIcon(element, image, assetsName, "appiconset");
     });
     //Log.i("$assetsName $iconPath $iconBackground", level: 1);
     // Log.i(config.toString(), level: 2);
-    modifyContentsFile(assetsName, iosIcons);
+    modifyContentsFile(assetsName, iosIcons, "appiconset");
   }
 
-  Future<void> saveIcon(
-      IconTemplate template, Image image, String assetsName) async {
-    final String newIconFolder = iosAssetFolder + assetsName + '.appiconset/';
+  Future<void> saveIcon(IconTemplate template, Image image, String assetsName,
+      String suffix) async {
+    final String newIconFolder = iosAssetFolder + assetsName + '.$suffix/';
     final Image newFile = createResizedImage(template, image);
     File(newIconFolder + template.name + '.png')
         .create(recursive: true)
@@ -259,9 +267,10 @@ class LauncherIOS implements LauncherInterface {
     });
   }
 
-  void modifyContentsFile(String assetsName, List<AppleIconTemplate> iosIcons) {
+  void modifyContentsFile(
+      String assetsName, List<AppleIconTemplate> iosIcons, String suffix) {
     final String newIconFolder =
-        iosAssetFolder + assetsName + '.appiconset/Contents.json';
+        iosAssetFolder + assetsName + '.$suffix/Contents.json';
     File(newIconFolder).create(recursive: true).then((File contentsJsonFile) {
       final String contentsFileContent = generateContentsFileAsString(iosIcons);
       contentsJsonFile.writeAsString(contentsFileContent);
