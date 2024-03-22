@@ -195,7 +195,7 @@ class LauncherIOS implements LauncherInterface {
     if (image == null) {
       return;
     }
-    // Image? imagefg = image.clone();
+    Image? imagefg = image.clone();
 
     String assetsName = config["ios_assets_name"] ?? "AppIcon";
     if (config["ios_assets_name"] == null && flavor != null) {
@@ -237,7 +237,7 @@ class LauncherIOS implements LauncherInterface {
       }
 
       launcherIcons.forEach((item) {
-        saveIcon(item, image, launcherName, "imageset");
+        saveIcon(item, imagefg, launcherName, "imageset");
       });
       modifyContentsFile(launcherName, launcherIcons, "imageset");
     }
