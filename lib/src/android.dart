@@ -72,32 +72,32 @@ class LauncherAndroid implements LauncherInterface {
     androidIcons.forEach((element) {
       if (config["android_circle"] == true) {
         saveIcon(
-            element, copyCropCircle(image, radius: 512), assetsName + "-circle",
+            element, copyCropCircle(image, radius: 512), assetsName + "_circle",
             flavor: flavor);
       }
       if (config["android_rounded"] == true) {
         saveIcon(
-            element, cornerRadius(image, radius: 86), assetsName + "-rounded",
+            element, cornerRadius(image, radius: 86), assetsName + "_rounded",
             flavor: flavor);
       }
       if (config["android_foreground"] == true) {
-        saveIcon(element, imagefg, assetsName + "-foreground", flavor: flavor);
+        saveIcon(element, imagefg, assetsName + "_foreground", flavor: flavor);
       }
       saveIcon(element, image, assetsName, flavor: flavor);
     });
     adaptiveForegroundIcons.forEach((element) {
       if (config["android_adaptive_circle"] == true) {
         saveIcon(
-            element, copyCropCircle(image, radius: 512), assetsName + "-circle",
+            element, copyCropCircle(image, radius: 512), assetsName + "_circle",
             flavor: flavor);
       }
       if (config["android_adaptive_rounded"] == true) {
         saveIcon(
-            element, cornerRadius(image, radius: 86), assetsName + "-rounded",
+            element, cornerRadius(image, radius: 86), assetsName + "_rounded",
             flavor: flavor);
       }
       if (config["android_adaptive_foreground"] == true) {
-        saveIcon(element, imagefg, assetsName + "-foreground", flavor: flavor);
+        saveIcon(element, imagefg, assetsName + "_foreground", flavor: flavor);
       }
       saveIcon(element, image, assetsName, flavor: flavor);
     });
